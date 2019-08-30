@@ -42,7 +42,7 @@ async def archivate(delay, folder, request):
     process = await asyncio.create_subprocess_shell(f'zip -rj - {path_to_files}', stdout=asyncio.subprocess.PIPE)
     try:
         while True:
-            archive_chunk, _ = await process.communicate()
+            archive_chunk = await process.stdout.read()
 
             if delay:
                 await asyncio.sleep(delay)
